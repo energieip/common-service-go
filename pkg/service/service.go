@@ -94,14 +94,7 @@ func WriteServiceConfig(path string, config ServiceConfig) error {
 	if err != nil {
 		return err
 	}
-
-	jsonFile, err := os.Open(path)
-	if err != nil {
-		return err
-	}
-	defer jsonFile.Close()
-	_, err = jsonFile.WriteString(dump + "\n")
-	return err
+	return ioutil.WriteFile(path, []byte(dump), 0644)
 }
 
 // ToJSON dump switch config struct
