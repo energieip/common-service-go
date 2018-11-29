@@ -1,5 +1,5 @@
-package: github.com/energieip/swh200-service-go
-homepage: https://github.com/energieip/swh200-service-go
+package: github.com/energieip/common-service-go
+homepage: https://github.com/energieip/common-service-go
 license: Apache v2.0
 owners:
 - name: Amandine Drebes
