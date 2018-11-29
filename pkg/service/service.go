@@ -3,6 +3,8 @@ package service
 import (
 	"bytes"
 	"encoding/json"
+	"io/ioutil"
+	"os"
 	"os/exec"
 	"strings"
 )
@@ -67,6 +69,39 @@ type Connector struct {
 type ServiceStatus struct {
 	Service
 	Status *string `json:"status"` //enable/running/disable etc.
+}
+
+//ReadServiceConfig parse the configuration file
+func ReadServiceConfig(path string) (*ServiceConfig, error) {
+	jsonFile, err := os.Open(path)
+	if err != nil {
+		return nil, err
+	}
+	defer jsonFile.Close()
+	byteValue, _ := ioutil.ReadAll(jsonFile)
+	var config ServiceConfig
+
+	json.Unmarshal(byteValue, &config)
+	if config.LogLevel == "" {
+		config.LogLevel = "INFO"
+	}
+	return &config, nil
+}
+
+//WriteServiceConfig store configuration
+func WriteServiceConfig(path string, config ServiceConfig) error {
+	dump, err := config.ToJSON()
+	if err != nil {
+		return err
+	}
+
+	jsonFile, err := os.Open(path)
+	if err != nil {
+		return err
+	}
+	defer jsonFile.Close()
+	_, err = jsonFile.WriteString(dump + "\n")
+	return err
 }
 
 // ToJSON dump switch config struct
