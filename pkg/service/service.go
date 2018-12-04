@@ -180,7 +180,10 @@ func InstallPackages(services map[string]Service) {
 //StartServices start all given services
 func StartServices(services map[string]Service) {
 	for _, service := range services {
-		service.Start()
+		status := service.GetServiceStatus()
+		if status != "active" {
+			service.Start()
+		}
 	}
 }
 
