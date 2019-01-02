@@ -35,10 +35,11 @@ type Service struct {
 
 //ServiceConfig desription
 type ServiceConfig struct {
-	LocalBroker   Broker      `json:"localBroker"`
-	NetworkBroker Broker      `json:"networkBroker"`
-	DB            DBConnector `json:"db"`
-	LogLevel      string      `json:"logLevel"`
+	LocalBroker        Broker      `json:"localBroker"`
+	NetworkBroker      Broker      `json:"networkBroker"`
+	DB                 DBConnector `json:"db"`
+	LogLevel           string      `json:"logLevel"`
+	PersistentDataPath string      `json:"persistentDataPath"` // link to store persistent data
 }
 
 //DBConnector description
